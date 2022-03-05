@@ -8,6 +8,7 @@
 
 namespace lac
 {
+#ifdef WITH_TESTS
 	using helper::test_phrase_parser;
 
 	namespace an
@@ -931,4 +932,5 @@ end
 
 		TEST_SUITE_END();
 	} // namespace an
+#endif
 } // namespace lac

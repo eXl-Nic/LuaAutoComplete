@@ -1,7 +1,8 @@
 #include <lac/completion/variable_at_pos.h>
 #include <lac/parser/parser.h>
-
+#ifdef WITH_TESTS
 #include <doctest/doctest.h>
+#endif
 #include <cctype>
 
 namespace
@@ -174,7 +175,7 @@ namespace lac::comp
 			return ret.variable;
 		return {};
 	}
-
+#ifdef WITH_TESTS
 	TEST_SUITE_BEGIN("Parse current line");
 
 	TEST_CASE("Name only")
@@ -311,4 +312,5 @@ namespace lac::comp
 	}
 
 	TEST_SUITE_END();
+#endif
 } // namespace lac::comp

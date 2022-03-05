@@ -7,8 +7,9 @@
 #include <boost/fusion/include/io.hpp>
 
 #include <boost/optional.hpp>
-
+#ifdef WITH_TESTS
 #include <doctest/doctest.h>
+#endif
 
 namespace lac::type::ast
 {
@@ -116,7 +117,7 @@ namespace lac::type::parser
 			   && f == l
 			   && val == value;
 	}
-
+#ifdef WITH_TESTS
 	TEST_CASE("typeName")
 	{
 		CHECK(test_parser("test", name));
@@ -267,7 +268,7 @@ namespace lac::type::parser
 		CHECK(test_parser("string function()", parsedType));
 		CHECK(test_parser("number method(boolean b)", parsedType));
 	}
-
+#endif
 } // namespace lac::type::parser
 
 namespace lac::an
@@ -327,7 +328,7 @@ namespace lac::an
 
 		return true;
 	}
-
+#ifdef WITH_TESTS
 	TEST_CASE("FunctionInfo from text")
 	{
 		auto info = FunctionInfo{"number function(string text)"};
@@ -423,4 +424,5 @@ namespace lac::an
 		CHECK(info.type == Type::function);
 		CHECK(info.function.getResultTypeFunc);
 	}
+#endif
 } // namespace lac::an

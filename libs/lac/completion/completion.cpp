@@ -7,8 +7,9 @@
 #include <lac/parser/chunk.h>
 #include <lac/parser/parser.h>
 #include <lac/helper/algorithm.h>
-
+#ifdef WITH_TESTS
 #include <doctest/doctest.h>
+#endif
 #include <cctype>
 
 namespace

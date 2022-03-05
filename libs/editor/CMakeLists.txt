@@ -3,7 +3,10 @@ cmake_minimum_required(VERSION 3.5)
 # External dependencies
 find_package(Qt5Widgets)
 find_package(Boost)
-find_package(nlohmann_json CONFIG REQUIRED)
+
+if(WITH_NLOHMANN_JSON)
+  find_package(nlohmann_json CONFIG REQUIRED)
+endif()
 
 # Target name
 set(target "editor")

@@ -6,8 +6,9 @@
 #include <lac/completion/type_at_pos.h>
 #include <lac/completion/variable_at_pos.h>
 #include <lac/parser/parser.h>
-
+#ifdef WITH_TESTS
 #include <doctest/doctest.h>
+#endif
 
 namespace lac::comp
 {
@@ -82,7 +83,7 @@ namespace lac::comp
 
 		return ArgumentData{parentType, functionType, index};
 	}
-
+#ifdef WITH_TESTS
 	TEST_CASE("Simple functions")
 	{
 		an::Scope parentScope;
@@ -192,4 +193,5 @@ pos = pos:mult(1.1)
 		CHECK(data->function.function.parameters.size() == 1);
 		CHECK(data->argumentIndex == 0);
 	}
+#endif
 } // namespace lac::comp

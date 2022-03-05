@@ -23,6 +23,7 @@ namespace
 
 namespace lac
 {
+#ifdef WITH_TESTS
 	using helper::test_phrase_parser;
 
 	TEST_CASE("Positions")
@@ -80,4 +81,5 @@ namespace lac
 		CHECK(var.begin == 0);
 		CHECK(var.end == 4);
 	}
+#endif
 } // namespace lac

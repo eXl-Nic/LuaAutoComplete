@@ -1,7 +1,8 @@
 #include <lac/analysis/type_info.h>
 #include <lac/analysis/parse_type.h>
-
+#ifdef WITH_TESTS
 #include <doctest/doctest.h>
+#endif
 
 namespace lac::an
 {
@@ -283,7 +284,7 @@ namespace lac::an
 
 		return str;
 	}
-
+#ifdef WITH_TESTS
 	TEST_CASE("Text construction")
 	{
 		CHECK(TypeInfo{"number"}.type == Type::number);
@@ -354,4 +355,5 @@ namespace lac::an
 		CHECK(info.typeName() == "method");
 		CHECK(info.functionDefinition() == "Player method(number a, string str)");
 	}
+	#endif
 } // namespace lac::an

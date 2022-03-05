@@ -5,9 +5,9 @@
 #include <lac/completion/variable_at_pos.h>
 #include <lac/completion/get_block.h>
 #include <lac/parser/parser.h>
-
+#ifdef WITH_TESTS
 #include <doctest/doctest.h>
-
+#endif
 namespace
 {
 	lac::an::TypeInfo getType(const lac::an::Scope& scope, const std::string& name)
@@ -333,7 +333,7 @@ namespace lac::comp
 			hierarchy.push_back(var->member->name);
 		return hierarchy;
 	}
-
+#ifdef WITH_TESTS
 	TEST_SUITE_BEGIN("Type at position");
 
 	TEST_CASE("Raw structs")
@@ -463,4 +463,5 @@ myTabel.child.text = 'meow'
 	}
 
 	TEST_SUITE_END();
+#endif
 } // namespace lac::comp

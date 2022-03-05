@@ -1,7 +1,12 @@
 #include <lac/analysis/user_defined.h>
 
+#ifdef WITH_TESTS
 #include <doctest/doctest.h>
+#endif
+
+#ifdef WITH_NLOHMANN_JSON
 #include <nlohmann/json.hpp>
+#endif
 
 namespace lac::an
 {
@@ -142,7 +147,7 @@ namespace lac::an
 
 		return j.dump(1, '\t');
 	}
-
+#ifdef WITH_TESTS
 	TEST_CASE("TypeInfo json serialization")
 	{
 		auto loadJson = [](const std::string& str) {
@@ -179,6 +184,7 @@ namespace lac::an
 		REQUIRE(info.members["position"].function.results.size() == 1);
 		CHECK(info.members["position"].function.results.front().name == "Pos");
 	}
+#endif
 #endif
 
 } // namespace lac::an

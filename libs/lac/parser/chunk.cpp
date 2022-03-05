@@ -23,6 +23,7 @@ namespace lac::parser
 	BOOST_SPIRIT_INSTANTIATE(skipper_type, iterator_type, x3::unused_type)
 	BOOST_SPIRIT_INSTANTIATE(skipper_type, iterator_type, pos_context_type)
 
+#ifdef WITH_TESTS
 	using helper::test_parser;
 	using helper::test_parser_simple;
 	using helper::test_phrase_parser;
@@ -1242,4 +1243,5 @@ namespace lac::parser
 			CHECK(b.returnStatement.is_initialized() == true);
 		}
 	}
+#endif
 } // namespace lac::parser

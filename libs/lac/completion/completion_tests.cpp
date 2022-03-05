@@ -66,7 +66,7 @@ namespace lac::ast
 
 		return true;
 	}
-
+#ifdef WITH_TESTS
 	doctest::String toString(const boost::optional<ast::Variable>& var)
 	{
 		if (!var)
@@ -109,10 +109,12 @@ namespace lac::ast
 
 		return str.c_str();
 	}
+#endif
 } // namespace lac::ast
 
 namespace lac
 {
+#ifdef WITH_TESTS
 	using helper::test_phrase_parser;
 
 	namespace comp
@@ -554,4 +556,5 @@ len = vec:length()
 
 		TEST_SUITE_END();
 	} // namespace comp
+#endif
 } // namespace lac

@@ -3,9 +3,8 @@
 #include <lac/parser/positions.h>
 
 #include <boost/spirit/home/x3.hpp>
-
+#ifdef WITH_TESTS
 #include <doctest/doctest.h>
-
 #include <string_view>
 
 namespace lac::helper
@@ -97,4 +96,6 @@ namespace lac::helper
 	}
 } // namespace lac::helper
 
+#endif
 std::ostream& operator<<(std::ostream& os, const std::type_info& value);
+

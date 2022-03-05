@@ -2,7 +2,10 @@ cmake_minimum_required(VERSION 3.5)
 
 # External dependencies
 find_package(Boost)
-find_package(doctest CONFIG REQUIRED)
+
+if(BUILD_UNIT_TESTS)
+  find_package(doctest CONFIG REQUIRED)
+endif()
 
 if(WITH_NLOHMANN_JSON)
 	find_package(nlohmann_json CONFIG REQUIRED)
@@ -38,6 +41,10 @@ set_target_properties(${target} PROPERTIES PREFIX "lac_")
 # Create namespaced alias
 add_library(${META_PROJECT_NAME}::${target} ALIAS ${target})
 
+if(BUILD_UNIT_TESTS)
+  target_compile_definitions(${target} -DWITH_TESTS)
+endif()
+
 # Export library for downstream projects
 export(TARGETS ${target} NAMESPACE ${META_PROJECT_NAME}:: FILE ${PROJECT_BINARY_DIR}/cmake/${target}/${target}-export.cmake)
 
@@ -54,12 +61,17 @@ target_include_directories(${target}
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include> 
 	$<INSTALL_INTERFACE:include>)
 
+set(PRIVATE_LIB_DEPS )
+if(BUILD_UNIT_TESTS)
+set(PRIVATE_LIB_DEPS ${PRIVATE_LIB_DEPS} doctest::doctest)
+endif()
+
 # Libraries
 target_link_libraries(${target} 
 	PUBLIC
 	Boost::boost
 	PRIVATE
-	doctest::doctest)
+	${PRIVATE_LIB_DEPS})
 
 	# Compile definitions
 target_compile_definitions(${target} 
