@@ -54,7 +54,7 @@ generate_export_header(${target} EXPORT_FILE_NAME ${export_file} EXPORT_MACRO_NA
 # Include directories
 target_include_directories(${target} 
 	PRIVATE
-	${CMAKE_SOURCE_DIR}/libs
+	${CMAKE_CURRENT_SOURCE_DIR}/..
 	${CMAKE_CURRENT_BINARY_DIR}/include
 	INTERFACE
 	$<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/libs>
