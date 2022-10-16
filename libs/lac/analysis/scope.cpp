@@ -13,9 +13,9 @@ namespace lac::an
 
 	void Scope::addVariable(const std::string& name, TypeInfo type)
 	{
-		if (m_userDefined && type.type == Type::function)
+		if (getUserDefined() && type.type == Type::function)
 		{
-			auto inputType = m_userDefined->getScriptInput(name);
+			auto inputType = getUserDefined()->getScriptInput(name);
 			if (inputType)
 			{
 				// This function is called by the application, and the signature is known
@@ -31,9 +31,9 @@ namespace lac::an
 		const auto it = m_variables.find(name);
 		if (it != m_variables.end())
 			return it->second;
-		if (m_userDefined)
+		if (getUserDefined())
 		{
-			if (auto var = m_userDefined->getVariable(name))
+			if (auto var = getUserDefined()->getVariable(name))
 				return *var;
 		}
 		if (m_parent)
@@ -67,9 +67,9 @@ namespace lac::an
 
 	TypeInfo Scope::getUserType(std::string_view name) const
 	{
-		if (m_userDefined)
+		if (getUserDefined())
 		{
-			if (auto user = m_userDefined->getType(name))
+			if (auto user = getUserDefined()->getType(name))
 				return *user;
 		}
 
@@ -150,9 +150,9 @@ namespace lac::an
 			for (const auto& it : scope.m_variables)
 				addVariable(it.first, it.second, local);
 
-			if (scope.m_userDefined)
+			if (scope.getUserDefined())
 			{
-				for (const auto& it : scope.m_userDefined->variables)
+				for (const auto& it : scope.getUserDefined()->variables)
 					addVariable(it.first, it.second, false);
 			}
 		};

@@ -212,7 +212,14 @@ namespace lac::editor
 			if (m_tooltipFunc)
 				tooltipText = m_tooltipFunc(typeInfo);
 			else if (typeInfo.type != lac::an::Type::nil)
+			{
 				tooltipText = QString::fromStdString(typeInfo.typeName());
+				if (typeInfo.type == lac::an::Type::function)
+				{
+					tooltipText.append( QString(" : %0").arg(QString::fromStdString(typeInfo.functionDefinition())));
+				}
+			}
+				
 
 			if (!tooltipText.isEmpty())
 				QToolTip::showText(helpEvent->globalPos(), tooltipText);
