@@ -363,7 +363,7 @@ namespace lac::parser
 
 	const auto functionDefinition_def = kwd("function") >> functionBody;
 
-	const auto functionCallPostfix_def = -(tableIndexExpression
+	const auto functionCallPostfix_def = *(tableIndexExpression
 										   | tableIndexName)
 										 >> functionCallEnd;
 
@@ -385,9 +385,9 @@ namespace lac::parser
 									   | name)
 									  >> *postPrefix;
 
-	const auto postPrefix_def = tableIndexExpression
+	const auto postPrefix_def = (tableIndexExpression
 								| tableIndexName
-								| functionCallEnd;
+								| functionCallEnd);
 
 	const auto variable_def = (bracketedExpression
 							   | name)

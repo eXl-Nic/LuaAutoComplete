@@ -8,6 +8,8 @@
 #include <lac/core_api.h>
 
 #include <boost/spirit/home/x3/support/ast/variant.hpp>
+#include <boost/spirit/home/x3/auxiliary.hpp>
+#include <boost/spirit/home/x3/support/utility/error_reporting.hpp>
 #include <boost/fusion/include/io.hpp>
 #include <boost/optional.hpp>
 
@@ -311,13 +313,13 @@ namespace lac::ast
 	using TableIndex = boost::spirit::x3::variant<TableIndexExpression, TableIndexName>;
 	struct FunctionCallPostfix
 	{
-		boost::optional<TableIndex> tableIndex;
+		std::vector < TableIndex > tableIndex;
 		FunctionCallEnd functionCall;
 	};
 
 	struct FunctionCall
 	{
-		boost::spirit::x3::variant<BracketedExpression, std::string> start;
+		boost::spirit::x3::variant< BracketedExpression, std::string> start;
 		std::vector<FunctionCallPostfix> rest;
 	};
 

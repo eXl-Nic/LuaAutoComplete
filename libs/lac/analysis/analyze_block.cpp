@@ -183,8 +183,8 @@ namespace lac::an
 
 		void operator()(const ast::FunctionCallPostfix& fcp) const
 		{
-			if (fcp.tableIndex)
-				boost::apply_visitor(*this, *fcp.tableIndex);
+			for (const auto& ti : fcp.tableIndex)
+				boost::apply_visitor(*this, ti);
 			(*this)(fcp.functionCall);
 		}
 

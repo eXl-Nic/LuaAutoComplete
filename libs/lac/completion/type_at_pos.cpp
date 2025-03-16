@@ -59,13 +59,13 @@ namespace
 
 	lac::an::TypeInfo processPostFix(const lac::an::Scope& scope, lac::an::TypeInfo type, const lac::ast::FunctionCallPostfix& fcp)
 	{
-		if (fcp.tableIndex)
+		for ( const auto & ti : fcp.tableIndex )
 		{
-			if (fcp.tableIndex->get().type() == typeid(lac::ast::TableIndexName))
-				type = scope.resolve(type.member(boost::get<lac::ast::TableIndexName>(*fcp.tableIndex).name));
+			if (ti.get().type() == typeid(lac::ast::TableIndexName))
+				type = scope.resolve(type.member(boost::get<lac::ast::TableIndexName>(ti).name));
 			else
 			{
-				const auto tie = boost::get<lac::ast::TableIndexExpression>(*fcp.tableIndex);
+				const auto tie = boost::get<lac::ast::TableIndexExpression>(ti);
 				if (type.type == lac::an::Type::array && lac::an::getType(scope, tie.expression).type == lac::an::Type::number)
 					return scope.resolve(lac::an::TypeInfo::fromTypeName(type.name));
 				else
@@ -169,18 +169,18 @@ namespace
 
 	lac::an::TypeInfo processPostFix(std::vector<std::string>& hierarchy, const lac::an::Scope& scope, lac::an::TypeInfo type, const lac::ast::FunctionCallPostfix& fcp)
 	{
-		if (fcp.tableIndex)
+		for ( const auto & ti : fcp.tableIndex)
 		{
-			if (fcp.tableIndex->get().type() == typeid(lac::ast::TableIndexName))
+			if (ti.get().type() == typeid(lac::ast::TableIndexName))
 			{
-				const auto name = boost::get<lac::ast::TableIndexName>(*fcp.tableIndex).name;
+				const auto name = boost::get<lac::ast::TableIndexName>(ti).name;
 				hierarchy.push_back(name);
 				type = scope.resolve(type.member(name));
 			}
 			else
 			{
 				hierarchy.clear();
-				const auto expression = boost::get<lac::ast::TableIndexExpression>(*fcp.tableIndex).expression;
+				const auto expression = boost::get<lac::ast::TableIndexExpression>(ti).expression;
 				if (type.type == lac::an::Type::array && lac::an::getType(scope, expression).type == lac::an::Type::number)
 				{
 					hierarchy.push_back(type.name);
